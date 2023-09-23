@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -18,11 +19,11 @@ import java.util.Date;
 public class EstudianteEntity {
     @Id
     private String rut;
-    private String Apellidos;
-    private String Nombres;
-    private Date Fecha_Nacimiento;
-    private String Tipo_Colegio;
-    private String Nombre_Colegio;
-    private Date Año_Egreso;
+    private String apellidos;
+    private String nombres;
+    private String fechaNacimiento;
+    private String tipoColegio;
+    private String nombreColegio;
+    private String anoEgreso;
 
 }
