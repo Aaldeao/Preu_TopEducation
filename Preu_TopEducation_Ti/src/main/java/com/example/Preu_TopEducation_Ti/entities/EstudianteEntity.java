@@ -15,21 +15,14 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Estudiante {
+public class EstudianteEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rut;
-
+    private String rut;
     private String Apellidos;
-    private String Nombre;
-
-    @Temporal(TemporalType.DATE)
+    private String Nombres;
     private Date Fecha_Nacimiento;
-
     private String Tipo_Colegio;
     private String Nombre_Colegio;
-
-    @Temporal(TemporalType.DATE)
     private Date Año_Egreso;
 
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir A Estudiante</title>
+</head>
+<body>
+<h1>Formulario para ingresar a Estudiante</h1>
+    <form action="/Guardar_Estudiante" method="post">
+
+        <label for="rut">RUT:</label>
+        <input type="text" id="rut" name="rut" required>
+        <br>
+
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" name="nombres" required>
+        <br>
+
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" name="apellidos" required>
+        <br>
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+        <br>
+
+        <label for="tipo_colegio">Tipo de colegio:</label>
+        <input type="text" id="tipo_colegio" name="tipo_colegio" required>
+        <br>
+
+        <label for="nombre_colegio">Nombre de colegio:</label>
+        <input type="text" id="nombre_colegio" name="nombre_colegio" required>
+        <br>
+
+        <label for="año_egreso">Año de Egreso:</label>
+        <input type="date" id="año_egreso" name="año_egreso" required>
+        <br>
+
+        <button type="submit">Guardar Estudiante</button>
+    </form>
+</body>
+</html>
