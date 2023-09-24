@@ -1,21 +1,17 @@
 package com.example.Preu_TopEducation_Ti.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @Table(name = "Estudiante")
 @NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
+
 public class EstudianteEntity {
     @Id
     private String rut;
@@ -25,5 +21,10 @@ public class EstudianteEntity {
     private String tipoColegio;
     private String nombreColegio;
     private String anoEgreso;
+
+    @OneToMany
+    private List<CuotaEntity> listadeCoutas;
+
+
 
 }
