@@ -22,9 +22,4 @@ public class EstudianteEntity {
     private String nombreColegio;
     private String anoEgreso;
 
-    @OneToMany
-    private List<CuotaEntity> listadeCoutas;
-
-
-
 }

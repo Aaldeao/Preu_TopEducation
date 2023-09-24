@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "Cuota")
 @Data
@@ -14,10 +15,17 @@ import javax.persistence.*;
 public class CuotaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCouta;
-    private int cantidad;
-    private String fechaEmision;
+    private Long idCuota;
+    private double cantidad;
+    private double arancel;
+    private double arancelMensual;
+    //private String fechaEmision;
     private String fechaPago;
-    private String Estado;
+    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name="rut_Estudiante")
+    private EstudianteEntity estudiante;
+
 
 }
