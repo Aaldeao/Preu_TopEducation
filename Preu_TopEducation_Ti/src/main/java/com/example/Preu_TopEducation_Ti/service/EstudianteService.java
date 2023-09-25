@@ -15,4 +15,7 @@ public class EstudianteService {
     public EstudianteEntity ingresarestudiante(EstudianteEntity estudiante){
         return estudianteRepository.save(estudiante);
     }
+    public EstudianteEntity buscarRut(String rut){
+        return estudianteRepository.findByRut(rut);
+    }
 }

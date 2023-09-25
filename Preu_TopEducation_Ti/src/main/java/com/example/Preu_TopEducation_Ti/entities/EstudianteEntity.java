@@ -20,6 +20,6 @@ public class EstudianteEntity {
     private String fechaNacimiento;
     private String tipoColegio;
     private String nombreColegio;
-    private String anoEgreso;
+    private int anoEgreso;
 
 }

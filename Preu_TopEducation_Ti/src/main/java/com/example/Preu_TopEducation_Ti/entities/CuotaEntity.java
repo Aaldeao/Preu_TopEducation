@@ -19,8 +19,8 @@ public class CuotaEntity {
     private double cantidad;
     private double arancel;
     private double arancelMensual;
-    //private String fechaEmision;
-    private String fechaPago;
+    private String fechaEmision;
+    //private String fechaPago;
     private String estado;
 
     @ManyToOne
