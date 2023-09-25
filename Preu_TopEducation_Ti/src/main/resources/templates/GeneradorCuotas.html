@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Generador de Cuotas</h1>
-    <form action="/guardarCuota" method="post">
+    <form action="/guardarCuota" method="post" style="display: inline;">
 
         <label for="rut">RUT del Estudiante:</label>
         <input type="text" id="rut" name="rut" required>
@@ -37,6 +37,9 @@
         <br>
 
         <button type="submit">Guardar Cuota</button>
+    </form>
+    <form action="/Inicio"style="display: inline;">
+        <button type="submit">Volver al inicio</button>
     </form>
 </body>
 </html>

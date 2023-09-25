@@ -24,7 +24,7 @@ public class CuotaEntity {
     private String estado;
 
     @ManyToOne
-    @JoinColumn(name="rut_Estudiante")
+    @JoinColumn(name="rut")
     private EstudianteEntity estudiante;
 
 

@@ -27,8 +27,11 @@ public class CuotaController {
     @PostMapping("/guardarCuota")
     public String GuardarCuota(@ModelAttribute("cuota") CuotaEntity cuota , EstudianteEntity estudiante){
         cuotaService.guardarcuota(cuota,estudiante );
+        return "index";
+    }
+    @GetMapping("/Mostrar")
+    public String mostrar(){
         return "Mostrar";
     }
-
 
 }
