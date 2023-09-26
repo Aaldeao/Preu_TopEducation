@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title> Buscar Cuota</title>
+    <meta http-equiv= "Content-Type" content="text/html; charset=UTF-8" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-sm">
+    <h1 class = "text-center">Cuota del estudiante</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Rut</th>
+            <th>Cantidad de cuotas</th>
+            <th>Arancel</th>
+            <th>Arancel mensual</th>
+            <th>Estado de pago</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cuota : ${cuota}">
+            <td th:text="${cuota.estudiante.rut}"></td>
+            <td th:text="${cuota.cantidad}"></td>
+            <td th:text="${cuota.arancel}"></td>
+            <td th:text="${cuota.arancelMensual}"></td>
+            <td th:text="${cuota.estado}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <form action="/Inicio">
+        <button type="submit" >Volver al inicio</button>
+    </form>
+</div>
+
+</body>
+</html>

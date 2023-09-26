@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EstudianteService {
 
-    @Autowired
+    @Autowired // Es una instancia de EstudianteRepository //
     EstudianteRepository estudianteRepository;
 
-    public EstudianteEntity ingresarestudiante(EstudianteEntity estudiante){
+    public EstudianteEntity ingresarestudiante(EstudianteEntity estudiante){ // Guarda en la base de datos los datos del estudiante //
         return estudianteRepository.save(estudiante);
     }
-    public EstudianteEntity buscarRut(String rut){
+    public EstudianteEntity buscarRut(String rut){ // Permite buscar un estudiante por el rut //
         return estudianteRepository.findByRut(rut);
     }
 }
