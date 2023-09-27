@@ -7,12 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 @Service
 public class CuotaService {
     @Autowired
     CuotaRepository cuotaRepository;
+
+    public CuotaEntity creacuota(int numero, EstudianteEntity estudiante){ // Creacion de la cuota //
+        CuotaEntity cuota = new CuotaEntity();
+        cuota.setEstudiante(estudiante);
+        cuota.setEstado("Pendiente");
+        cuota.setArancel(1500000);
+        cuota.setNumeroCuota(numero);
+        cuota.setFechaEmision(LocalDate.now());
+        calcularcuotamensuales(cuota, estudiante);
+         return cuota;
+    }
 
     // Calcula el arancel con los descuentos correspondientes sobre su tipo de colegio y los años de egreso//
     public double calculararancel(CuotaEntity cuota, EstudianteEntity estudiante){
@@ -59,8 +71,8 @@ public class CuotaService {
     public double calcularcuotamensuales(CuotaEntity cuota, EstudianteEntity estudiante){
         double arancel  = calculararancel(cuota, estudiante);
         double arancelMensual = 0;
-        if (arancel>0 && cuota.getCantidad()>0){
-            arancelMensual = arancel / cuota.getCantidad();
+        if (arancel>0 && estudiante.getCantidad()>0){
+            arancelMensual = arancel / estudiante.getCantidad();
         }
         return Math.round(arancelMensual); // redondea el valor decimal al numero entero mas cercano //
     }
@@ -73,7 +85,7 @@ public class CuotaService {
     }
 
     // Obtener la cuota por el rut //
-    public CuotaEntity obtenerPorRut(String rut){
+    public ArrayList<CuotaEntity> obtenerPorRut(String rut){
      return cuotaRepository.findByEstudianteRut(rut);
     }
 }

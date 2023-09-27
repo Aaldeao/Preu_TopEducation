@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping
 public class CuotaController {
@@ -26,9 +28,13 @@ public class CuotaController {
     }
 
     @PostMapping("/guardarCuota")// muestra el formulario del generador de cuotas y los procesa  //
-    public String GuardarCuota(@ModelAttribute("cuota") CuotaEntity cuota , EstudianteEntity estudiante){
+    public String GuardarCuota(EstudianteEntity estudiante){
         EstudianteEntity estudiante1 = estudianteService.buscarRut(estudiante.getRut());
-        cuotaService.guardarcuota(cuota,estudiante1 );
+        estudiante1.setCantidad(estudiante.getCantidad());
+        for (int i = 0; i <estudiante.getCantidad(); i++) { // genera la cantidad que aparece el esudiante  en la base de datos  mediante la cantidad de cuotas que solicito //
+            CuotaEntity cuota = cuotaService.creacuota(i + 1, estudiante1);
+            cuotaService.guardarcuota(cuota,estudiante1);
+        }
         return "index";
     }
     @GetMapping("/Mostrar")// solicita el rut del estudiante el cual esta asociado a las cuotas //
@@ -38,11 +44,9 @@ public class CuotaController {
 
     @PostMapping("/BuscarCuota") // Mediante el rut solicitado verifica mediante condiciones si el estudiante tiene cuotas //
     public String buscarcuota(@RequestParam("rut") String rut , Model model){ // metodo @RequestParam que nos sirve para acceder al valor del parametro rut//
-        CuotaEntity cuota = cuotaService.obtenerPorRut(rut);
+        ArrayList<CuotaEntity> cuota = cuotaService.obtenerPorRut(rut);
         if (cuota != null) {
             model.addAttribute("cuota", cuota);
-        } else {
-            model.addAttribute("Error", "Rut no encontrado");
         }
         return "BuscarCuota";
     }

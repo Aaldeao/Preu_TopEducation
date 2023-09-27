@@ -5,7 +5,9 @@ import com.example.Preu_TopEducation_Ti.entities.CuotaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 public interface CuotaRepository extends JpaRepository<CuotaEntity, Long> {
-     CuotaEntity findByEstudianteRut(String rut); // se realiza la busqueda del rut en la base de datos //
+     ArrayList<CuotaEntity> findByEstudianteRut(String rut); // se realiza la busqueda del rut en la base de datos //
 }

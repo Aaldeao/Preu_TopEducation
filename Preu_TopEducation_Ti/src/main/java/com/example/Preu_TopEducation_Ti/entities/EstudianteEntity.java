@@ -3,7 +3,6 @@ package com.example.Preu_TopEducation_Ti.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
@@ -21,5 +20,5 @@ public class EstudianteEntity {
     private String tipoColegio;
     private String nombreColegio;
     private int anoEgreso;
-
+    private int cantidad;
 }

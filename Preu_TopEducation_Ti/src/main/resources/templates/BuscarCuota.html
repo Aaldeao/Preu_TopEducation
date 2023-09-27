@@ -12,7 +12,7 @@
         <thead class="thead-dark">
         <tr>
             <th>Rut</th>
-            <th>Cantidad de cuotas</th>
+            <th>Cuotas</th>
             <th>Arancel</th>
             <th>Arancel mensual</th>
             <th>Estado de pago</th>
@@ -22,7 +22,7 @@
         <tbody>
         <tr th:each="cuota : ${cuota}">
             <td th:text="${cuota.estudiante.rut}"></td>
-            <td th:text="${cuota.cantidad}"></td>
+            <td th:text="${cuota.numeroCuota}"></td>
             <td th:text="${cuota.arancel}"></td>
             <td th:text="${cuota.arancelMensual}"></td>
             <td th:text="${cuota.estado}"></td>
