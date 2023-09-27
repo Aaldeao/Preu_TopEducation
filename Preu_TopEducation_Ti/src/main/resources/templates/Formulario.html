@@ -5,37 +5,38 @@
     <title>Añadir A Estudiante</title>
 </head>
 <body>
-<h1>Formulario para ingresar a Estudiante</h1>
+    <h1>Formulario para ingresar a Estudiante</h1>
     <form action="/Guardar_Estudiante" method="post" style="display: inline;">
-
-        <label for="rut">RUT:</label>
-        <input type="text" id="rut" name="rut" required>
-        <br>
-
-        <label for="nombres">Nombres:</label>
-        <input type="text" id="nombres" name="nombres" required>
-        <br>
-
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" name="apellidos" required>
-        <br>
-
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
-        <br>
-
-        <label for="tipoColegio">Tipo de colegio:</label>
-        <input type="text" id="tipoColegio" name="tipoColegio" required>
-        <br>
-
-        <label for="nombreColegio">Nombre de colegio:</label>
-        <input type="text" id="nombreColegio" name="nombreColegio" required>
-        <br>
-
-        <label for="anoEgreso">Año de Egreso:</label>
-        <input type="text" id="anoEgreso" name="anoEgreso" required>
-        <br>
-
+        <table>
+            <tr>
+                <td><label for="rut">RUT:</label></td>
+                <td><input type="text" id="rut" name="rut" required></td>
+            </tr>
+            <tr>
+                <td><label for="nombres">Nombres:</label></td>
+                <td><input type="text" id="nombres" name="nombres" required></td>
+            </tr>
+            <tr>
+                <td><label for="apellidos">Apellidos:</label></td>
+                <td><input type="text" id="apellidos" name="apellidos" required></td>
+            </tr>
+            <tr>
+                <td><label for="fechaNacimiento">Fecha de Nacimiento:</label></td>
+                <td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required></td>
+            </tr>
+            <tr>
+                <td><label for="tipoColegio">Tipo de colegio:</label></td>
+                <td><input type="text" id="tipoColegio" name="tipoColegio" required></td>
+            </tr>
+            <tr>
+                <td><label for="nombreColegio">Nombre de colegio:</label></td>
+                <td><input type="text" id="nombreColegio" name="nombreColegio" required></td>
+            </tr>
+            <tr>
+                <td><label for="anoEgreso">Año de Egreso:</label></td>
+                <td><input type="text" id="anoEgreso" name="anoEgreso" required></td>
+            </tr>
+        </table>
         <button type="submit">Guardar Estudiante</button>
     </form>
     <form action="/Inicio"style="display: inline;">

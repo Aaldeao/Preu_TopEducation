@@ -7,36 +7,28 @@
 <body>
     <h1>Generador de Cuotas</h1>
     <form action="/guardarCuota" method="post" style="display: inline;">
-
-        <label for="rut">RUT del Estudiante:</label>
-        <input type="text" id="rut" name="rut" required>
-        <br>
-
-        <label for="cantidad">Cantidad de Cuotas:</label>
-        <input type="number" id="cantidad" name="cantidad" required max="10" min="1">
-        <br>
-        <!--
-        <label for="arancel">Arancel:</label>
-        <input type="number" id="arancel" name="arancel" required value="1500000" disabled>
-        <br>
-        -->
-
-        <label for="fechaEmision">Fecha de Emisión:</label>
-        <input type="date" id="fechaEmision" name="fechaEmision" required>
-        <br>
-
-        <!--
-        <label for="fechaPago">Fecha de Pago:</label>
-        <input type="date" id="fechaPago" name="fechaPago" required>
-        <br>
-        -->
-        <label for="estado">Estado:</label>
-        <select id="estado" name="estado" required>
-            <option value="Pagado">Pagado</option>
-            <option value="Pendiente">Pendiente</option>
-        </select>
-        <br>
-
+        <table>
+            <tr>
+                <td><label for="rut">RUT del Estudiante:</label></td>
+                <td><input type="text" id="rut" name="rut" required></td>
+            </tr>
+            <tr>
+                <td><label for="cantidad">Cantidad de Cuotas:</label></td>
+                <td><input type="number" id="cantidad" name="cantidad" required max="10" min="1"></td>
+            </tr>
+            <tr>
+                <td><label for="fechaEmision">Fecha de Emisión:</label></td>
+                <td><input type="date" id="fechaEmision" name="fechaEmision" required></td>
+            </tr>
+            <tr>
+                <td><label for="estado">Estado:</label></td>
+                <td>
+                    <select id="estado" name="estado" required>
+                        <option value="Pendiente">Pendiente</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
         <button type="submit">Guardar Cuota</button>
     </form>
     <form action="/Inicio"style="display: inline;">

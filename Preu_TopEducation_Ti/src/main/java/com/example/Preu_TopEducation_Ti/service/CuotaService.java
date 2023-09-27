@@ -62,7 +62,7 @@ public class CuotaService {
         if (arancel>0 && cuota.getCantidad()>0){
             arancelMensual = arancel / cuota.getCantidad();
         }
-        return Math.round(arancelMensual);
+        return Math.round(arancelMensual); // redondea el valor decimal al numero entero mas cercano //
     }
     //Guarda la cuota el arancel y su arancel mensual del estudiante //
     public CuotaEntity guardarcuota(CuotaEntity cuota, EstudianteEntity estudiante){
