@@ -14,8 +14,11 @@ import java.util.ArrayList;
 public class CuotaService {
     @Autowired
     CuotaRepository cuotaRepository;
+    @Autowired
+    EstudianteService estudianteService;
 
-    public CuotaEntity creacuota(int numero, EstudianteEntity estudiante){ // Creacion de la cuota //
+    // Crea un cuota //
+    public CuotaEntity creacuota(int numero, EstudianteEntity estudiante){
         CuotaEntity cuota = new CuotaEntity();
         cuota.setEstudiante(estudiante);
         cuota.setEstado("Pendiente");
@@ -60,14 +63,13 @@ public class CuotaService {
 
             } else if (egreso <= 4) {
                 arancel = arancel * 0.96; // 4% //
-
             }
         }
         cuota.setArancel(arancel);
         return arancel;
     }
 
-    //Calcula el arancel mensual que deberia pagar dependiendo de las cuotas escogidas//
+    // Calcula el arancel mensual que deberia pagar dependiendo de las cuotas escogidas //
     public double calcularcuotamensuales(CuotaEntity cuota, EstudianteEntity estudiante){
         double arancel  = calculararancel(cuota, estudiante);
         double arancelMensual = 0;
@@ -76,7 +78,8 @@ public class CuotaService {
         }
         return Math.round(arancelMensual); // redondea el valor decimal al numero entero mas cercano //
     }
-    //Guarda la cuota el arancel y su arancel mensual del estudiante //
+
+    //Guarda el arancel y su arancel mensual del estudiante //
     public CuotaEntity guardarcuota(CuotaEntity cuota, EstudianteEntity estudiante){
         double arancelMensual = calcularcuotamensuales(cuota, estudiante);
         cuota.setArancelMensual(arancelMensual);
@@ -84,7 +87,16 @@ public class CuotaService {
         return cuotaRepository.save(cuota);
     }
 
-    // Obtener la cuota por el rut //
+    // Genera las cuotas mediante a la cantidad asociada que solicia la persona y las guarda  //
+    public void cuotasxEstudiante(EstudianteEntity estudiante ) {
+        EstudianteEntity estudiante1 = estudianteService.buscarRut(estudiante.getRut());
+        estudiante1.setCantidad(estudiante.getCantidad());
+        for (int i = 0; i < estudiante.getCantidad(); i++) {
+            CuotaEntity cuota = creacuota(i + 1, estudiante1);
+            guardarcuota(cuota, estudiante1);
+        }
+    }
+    // Obtener las cuotas asociadas por el rut //
     public ArrayList<CuotaEntity> obtenerPorRut(String rut){
      return cuotaRepository.findByEstudianteRut(rut);
     }

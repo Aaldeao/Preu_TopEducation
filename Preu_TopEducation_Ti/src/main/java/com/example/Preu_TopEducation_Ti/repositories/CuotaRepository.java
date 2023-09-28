@@ -9,5 +9,5 @@ import java.util.ArrayList;
 
 @Repository
 public interface CuotaRepository extends JpaRepository<CuotaEntity, Long> {
-     ArrayList<CuotaEntity> findByEstudianteRut(String rut); // se realiza la busqueda del rut en la base de datos //
+     ArrayList<CuotaEntity> findByEstudianteRut(String rut); // La busqueda del rut en la base de datos //
 }

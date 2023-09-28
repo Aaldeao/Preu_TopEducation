@@ -18,36 +18,27 @@ public class CuotaController {
     @Autowired
     CuotaService cuotaService;
 
-    @Autowired
-    EstudianteService estudianteService;
-
-    @GetMapping("/GeneradorCuotas")// devuelve la vista generador de cuota y recibe los datos  //
+    @GetMapping("/GeneradorCuotas")// Devuelve la vista para generar las cuota y recibe los datos  //
     public String GeneradorCuotas(Model model){
         model.addAttribute("cuota",new CuotaEntity());
         return "GeneradorCuotas";
     }
 
-    @PostMapping("/guardarCuota")// muestra el formulario del generador de cuotas y los procesa  //
+    @PostMapping("/guardarCuota")// Guarda las cuotas del estudiante //
     public String GuardarCuota(EstudianteEntity estudiante){
-        EstudianteEntity estudiante1 = estudianteService.buscarRut(estudiante.getRut());
-        estudiante1.setCantidad(estudiante.getCantidad());
-        for (int i = 0; i <estudiante.getCantidad(); i++) { // genera la cantidad que aparece el esudiante  en la base de datos  mediante la cantidad de cuotas que solicito //
-            CuotaEntity cuota = cuotaService.creacuota(i + 1, estudiante1);
-            cuotaService.guardarcuota(cuota,estudiante1);
-        }
+        cuotaService.cuotasxEstudiante(estudiante);
         return "index";
     }
-    @GetMapping("/Mostrar")// solicita el rut del estudiante el cual esta asociado a las cuotas //
+
+    @GetMapping("/Mostrar")// Solicita el rut del estudiante el cual esta asociado a las cuotas //
     public String mostrar(){
         return "Mostrar";
     }
 
-    @PostMapping("/BuscarCuota") // Mediante el rut solicitado verifica mediante condiciones si el estudiante tiene cuotas //
-    public String buscarcuota(@RequestParam("rut") String rut , Model model){ // metodo @RequestParam que nos sirve para acceder al valor del parametro rut//
+    @PostMapping("/BuscarCuota") // Mediante el rut solicitado verifica si el estudiante tiene cuotas y las muestra//
+    public String buscarcuota(@RequestParam("rut") String rut , Model model){ // metodo @RequestParam que nos sirve para acceder al valor del parametro rut //
         ArrayList<CuotaEntity> cuota = cuotaService.obtenerPorRut(rut);
-        if (cuota != null) {
-            model.addAttribute("cuota", cuota);
-        }
+        model.addAttribute("cuota", cuota);
         return "BuscarCuota";
     }
 }
