@@ -37,8 +37,14 @@ public class CuotaController {
 
     @PostMapping("/BuscarCuota") // Mediante el rut solicitado verifica si el estudiante tiene cuotas y las muestra//
     public String buscarcuota(@RequestParam("rut") String rut , Model model){ // metodo @RequestParam que nos sirve para acceder al valor del parametro rut //
-        ArrayList<CuotaEntity> cuota = cuotaService.obtenerPorRut(rut);
-        model.addAttribute("cuota", cuota);
+        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(rut);
+        model.addAttribute("cuota", cuotas);
+        return "BuscarCuota";
+    }
+
+    @PostMapping("/Pagocuota")
+    public String pagoCuota(@ModelAttribute("cuota") CuotaEntity cuota){
+        cuotaService.pagarCuota(cuota);
         return "BuscarCuota";
     }
 }

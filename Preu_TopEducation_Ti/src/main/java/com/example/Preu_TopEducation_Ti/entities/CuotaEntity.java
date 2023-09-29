@@ -29,5 +29,4 @@ public class CuotaEntity {
     @JoinColumn(name="rut")
     private EstudianteEntity estudiante;
 
-
 }

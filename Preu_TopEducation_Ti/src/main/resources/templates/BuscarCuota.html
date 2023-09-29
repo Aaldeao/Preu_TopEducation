@@ -26,6 +26,11 @@
             <td th:text="${cuota.arancel}"></td>
             <td th:text="${cuota.arancelMensual}"></td>
             <td th:text="${cuota.estado}"></td>
+            <td>
+                <form th:action="@{/Pagocuota}" method="post">
+                    <button type="submit" class="btn btn-danger" >Pagar</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -33,7 +38,7 @@
 </div>
 <div class="d-flex justify-content-center align-items-center">
     <form action="/Inicio">
-        <button type="submit" >Volver al inicio</button>
+        <button type="submit" class="btn btn-primary" >Volver al inicio</button>
     </form>
 </div>
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 @Service
 public class CuotaService {
     @Autowired
@@ -96,8 +95,17 @@ public class CuotaService {
             guardarcuota(cuota, estudiante1);
         }
     }
+
     // Obtener las cuotas asociadas por el rut //
     public ArrayList<CuotaEntity> obtenerPorRut(String rut){
      return cuotaRepository.findByEstudianteRut(rut);
+    }
+
+    //Genera que al apretar el boton pagar se cambie el estado de su cuota de pendiente a pagado //
+    public void pagarCuota(CuotaEntity cuota){
+        if ("Pendiente".equals(cuota.getEstado())){
+            cuota.setEstado("Pagado");
+            cuotaRepository.cambiarEstado(cuota.getIdCuota(), "Pagado");
+        }
     }
 }
