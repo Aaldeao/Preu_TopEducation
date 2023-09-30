@@ -5,6 +5,7 @@ import com.example.Preu_TopEducation_Ti.entities.EstudianteEntity;
 import com.example.Preu_TopEducation_Ti.repositories.CuotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -101,11 +102,17 @@ public class CuotaService {
      return cuotaRepository.findByEstudianteRut(rut);
     }
 
-    //Genera que al apretar el boton pagar se cambie el estado de su cuota de pendiente a pagado //
+    // Busca la cuota mediante su idCuota //
+    public CuotaEntity obteneridCuota(Long idCuota) {
+        Optional<CuotaEntity> optionalCuota = cuotaRepository.findById(idCuota);
+        return optionalCuota.orElse(null); // El cual retorna la cuota o null si es que no la encuentra //
+    }
+
+    // Al apretar el boton pagar se cambie el estado de la cuota de pendiente a pagado //
     public void pagarCuota(CuotaEntity cuota){
         if ("Pendiente".equals(cuota.getEstado())){
             cuota.setEstado("Pagado");
-            cuotaRepository.cambiarEstado(cuota.getIdCuota(), "Pagado");
+            cuotaRepository.save(cuota);
         }
     }
 }

@@ -3,7 +3,6 @@ package com.example.Preu_TopEducation_Ti.controllers;
 import com.example.Preu_TopEducation_Ti.entities.CuotaEntity;
 import com.example.Preu_TopEducation_Ti.entities.EstudianteEntity;
 import com.example.Preu_TopEducation_Ti.service.CuotaService;
-import com.example.Preu_TopEducation_Ti.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,14 +36,17 @@ public class CuotaController {
 
     @PostMapping("/BuscarCuota") // Mediante el rut solicitado verifica si el estudiante tiene cuotas y las muestra//
     public String buscarcuota(@RequestParam("rut") String rut , Model model){ // metodo @RequestParam que nos sirve para acceder al valor del parametro rut //
-        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(rut);
-        model.addAttribute("cuota", cuotas);
+        ArrayList<CuotaEntity> cuota = cuotaService.obtenerPorRut(rut);
+        model.addAttribute("cuota", cuota);
         return "BuscarCuota";
     }
 
-    @PostMapping("/Pagocuota")
-    public String pagoCuota(@ModelAttribute("cuota") CuotaEntity cuota){
+    @PostMapping("/Pagocuota") // Al apretar el boton de pagar en la cuota obtenemos el idCuota y se cambiamos el estado //
+    public String pagoCuota(@RequestParam("idCuota") Long idCuota, Model model) {
+        CuotaEntity cuota = cuotaService.obteneridCuota(idCuota);
         cuotaService.pagarCuota(cuota);
+        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
+        model.addAttribute("cuota", cuotas);
         return "BuscarCuota";
     }
 }
