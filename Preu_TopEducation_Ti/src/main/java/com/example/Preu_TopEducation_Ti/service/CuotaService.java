@@ -4,7 +4,9 @@ import com.example.Preu_TopEducation_Ti.entities.CuotaEntity;
 import com.example.Preu_TopEducation_Ti.entities.EstudianteEntity;
 import com.example.Preu_TopEducation_Ti.repositories.CuotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 import java.time.LocalDate;
@@ -26,7 +28,9 @@ public class CuotaService {
         cuota.setNumeroCuota(numero);
         cuota.setFechaEmision(LocalDate.now());
         calcularcuotamensuales(cuota, estudiante);
-         return cuota;
+        cuota.setFechaPago(cuota.getFechaEmision().plusMonths(1).withDayOfMonth(5));
+        cuota.setFechaVencimiento(cuota.getFechaEmision().plusMonths(1).withDayOfMonth(11));
+        return cuota;
     }
 
     // Calcula el arancel con los descuentos correspondientes sobre su tipo de colegio y los años de egreso//
@@ -94,6 +98,8 @@ public class CuotaService {
         for (int i = 0; i < estudiante.getCantidad(); i++) {
             CuotaEntity cuota = creacuota(i + 1, estudiante1);
             guardarcuota(cuota, estudiante1);
+            cuota.setFechaPago(cuota.getFechaEmision().plusMonths(i + 2).withDayOfMonth(5));
+            cuota.setFechaVencimiento(cuota.getFechaEmision().plusMonths(i + 2).withDayOfMonth(11));
         }
     }
 
@@ -108,11 +114,24 @@ public class CuotaService {
         return optionalCuota.orElse(null); // El cual retorna la cuota o null si es que no la encuentra //
     }
 
-    // Al apretar el boton pagar se cambie el estado de la cuota de pendiente a pagado //
+    // Al apretar el boton pagar se cambie el estado de la cuota de pendiente a pagado o atrasada dependiendo de la fecha local //
     public void pagarCuota(CuotaEntity cuota){
-        if ("Pendiente".equals(cuota.getEstado())){
-            cuota.setEstado("Pagado");
-            cuotaRepository.save(cuota);
+        LocalDate fechaLocal = LocalDate.now();
+        LocalDate fechaPago = cuota.getFechaPago();
+        LocalDate fechaVencimiento = cuota.getFechaVencimiento();
+        if ("Pendiente".equals(cuota.getEstado()) ) {
+            int diaDelmes = fechaLocal.getDayOfMonth();
+            int mesDeldia = fechaPago.getMonthValue();
+            if (fechaLocal.equals(fechaPago)) {
+                cuota.setEstado("Pagado");
+                cuotaRepository.save(cuota);
+            } else if (fechaLocal.getMonthValue() == mesDeldia && diaDelmes >= 6 && diaDelmes <= 10) {
+                cuota.setEstado("Pagado");
+                cuotaRepository.save(cuota);
+            } else if (fechaLocal.equals(fechaVencimiento)) {
+                cuota.setEstado("Atrasado");
+                cuotaRepository.save(cuota);
+            }
         }
     }
 }

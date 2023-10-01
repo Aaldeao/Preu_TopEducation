@@ -21,7 +21,8 @@ public class CuotaEntity {
     private double arancel;
     private double arancelMensual;
     private LocalDate fechaEmision;
-    //private String fechaPago;
+    private LocalDate fechaPago;
+    private LocalDate fechaVencimiento;
     private String estado;
 
     // relacion mucho a uno del estudiante cuota //
