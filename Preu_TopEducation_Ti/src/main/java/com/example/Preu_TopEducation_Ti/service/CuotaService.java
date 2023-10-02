@@ -4,11 +4,10 @@ import com.example.Preu_TopEducation_Ti.entities.CuotaEntity;
 import com.example.Preu_TopEducation_Ti.entities.EstudianteEntity;
 import com.example.Preu_TopEducation_Ti.repositories.CuotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
-
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Optional;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -118,20 +117,48 @@ public class CuotaService {
     public void pagarCuota(CuotaEntity cuota){
         LocalDate fechaLocal = LocalDate.now();
         LocalDate fechaPago = cuota.getFechaPago();
-        LocalDate fechaVencimiento = cuota.getFechaVencimiento();
+        //LocalDate fechaVencimiento = cuota.getFechaVencimiento();
         if ("Pendiente".equals(cuota.getEstado()) ) {
             int diaDelmes = fechaLocal.getDayOfMonth();
             int mesDeldia = fechaPago.getMonthValue();
-            if (fechaLocal.equals(fechaPago)) {
+            if (fechaLocal.equals(fechaPago) || (fechaLocal.getMonthValue() == mesDeldia && diaDelmes >= 6 && diaDelmes <= 10)) {
                 cuota.setEstado("Pagado");
-                cuotaRepository.save(cuota);
-            } else if (fechaLocal.getMonthValue() == mesDeldia && diaDelmes >= 6 && diaDelmes <= 10) {
-                cuota.setEstado("Pagado");
-                cuotaRepository.save(cuota);
-            } else if (fechaLocal.equals(fechaVencimiento)) {
-                cuota.setEstado("Atrasado");
                 cuotaRepository.save(cuota);
             }
         }
     }
+
+    // Calcula los meses atrasados y aplica los intereses según la cantidad de meses //
+    public void pagarCuotaAtrasada(CuotaEntity cuota) {
+        LocalDate fechaLocal = LocalDate.now();
+        long mesesAtrasados = ChronoUnit.MONTHS.between(cuota.getFechaPago(), fechaLocal);// calcula la cantidad de meses entre la fecha de pago con la fecha local //
+        if ("Pendiente".equals(cuota.getEstado())) {
+            double interes = 0;
+            if ( mesesAtrasados == 1) {
+                interes = cuota.getArancelMensual() * 0.03;
+                cuota.setEstado("Atrasada");
+            } else if (mesesAtrasados == 2) {
+                interes = cuota.getArancelMensual() * 0.06;
+                cuota.setEstado("Atrasada");
+            } else if (mesesAtrasados == 3) {
+                interes = cuota.getArancelMensual() * 0.09;
+                cuota.setEstado("Atrasada");
+            } else if (mesesAtrasados > 3) {
+                interes = cuota.getArancelMensual() * 0.15;
+                cuota.setEstado("Atrasada");
+            }
+            double nuevoArancelMensual = cuota.getArancelMensual() + interes;
+            cuota.setArancelMensual(nuevoArancelMensual);
+
+            List<CuotaEntity> cuotasPendientes = cuotaRepository.findCuotasPendintes(); // Obtengo una lista de las cuotas pendientes que quedan y le aplico el interes que corresponde //
+            for (CuotaEntity cuotaPendientes : cuotasPendientes) {
+                if (!cuotaPendientes.equals(cuota)) {
+                    double nuevoArancelMensualPendiente = cuotaPendientes.getArancelMensual() + interes;
+                    cuotaPendientes.setArancelMensual(nuevoArancelMensualPendiente);
+                }
+            }
+            cuotaRepository.save(cuota);
+        }
+    }
+
 }

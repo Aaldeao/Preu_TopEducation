@@ -27,5 +27,10 @@
         </form>
     </div>
 
+    <form action="/SubirExcel" method="post" enctype="multipart/form-data">
+        <label for="archivo_excel" style="cursor: pointer;">Seleccionar Archivo</label>
+        <input type="file" name="archivo_excel" id="archivo_excel" accept=".xls, .xlsx, .csv" style="display: none;">
+        <button type="submit">Subir Excel</button>
+    </form>
 </body>
 </html>

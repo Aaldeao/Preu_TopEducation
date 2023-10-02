@@ -49,4 +49,13 @@ public class CuotaController {
         model.addAttribute("cuota", cuotas);
         return "BuscarCuota";
     }
+
+    @PostMapping("/PagocuotaAtrasada")// Al apretar el boton de atrasada en la cuota se cambiamos el estado para luego agregar sus intereses //
+    public String pagarCuotaAtrasada(@RequestParam("idCuota") Long idCuota, Model model) {
+        CuotaEntity cuota = cuotaService.obteneridCuota(idCuota);
+        cuotaService.pagarCuotaAtrasada(cuota);
+        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
+        model.addAttribute("cuota", cuotas);
+        return "BuscarCuota";
+    }
 }
