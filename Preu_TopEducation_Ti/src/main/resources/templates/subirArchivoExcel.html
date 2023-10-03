@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pruebas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 50vh; margin: 0;">
+
+<div style="text-align: center;">
+    <h1>Subir Archivo de Pruebas</h1>
+    <form th:action="@{/SubirExcel}" method="post" enctype="multipart/form-data">
+        <label for="archivo_excel"></label>
+        <input type="file" name="archivo_excel" id="archivo_excel" accept=".csv">
+        <button type="submit">Subir Archivo</button>
+    </form>
+</div>
+</body>
+</html>

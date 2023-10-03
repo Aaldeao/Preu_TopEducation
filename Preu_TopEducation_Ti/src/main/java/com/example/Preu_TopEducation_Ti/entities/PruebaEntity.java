@@ -16,7 +16,11 @@ public class PruebaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPrueba;
-    private String rut;
     private String fechaExamen;
     private Long puntaje;
+
+    // relacion mucho a uno del estudiante prueba//
+    @ManyToOne
+    @JoinColumn(name="rut")
+    private EstudianteEntity estudiante;
 }
