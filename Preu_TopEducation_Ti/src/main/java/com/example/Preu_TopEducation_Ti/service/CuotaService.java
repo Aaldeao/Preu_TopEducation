@@ -17,6 +17,8 @@ public class CuotaService {
     CuotaRepository cuotaRepository;
     @Autowired
     EstudianteService estudianteService;
+    @Autowired
+    PruebaService pruebaService;
 
     // Crea un cuota //
     public CuotaEntity creacuota(int numero, EstudianteEntity estudiante){
@@ -82,7 +84,7 @@ public class CuotaService {
         return Math.round(arancelMensual); // redondea el valor decimal al numero entero mas cercano //
     }
 
-    //Guarda el arancel y su arancel mensual del estudiante //
+    // Guarda el arancel y su arancel mensual del estudiante //
     public CuotaEntity guardarcuota(CuotaEntity cuota, EstudianteEntity estudiante){
         double arancelMensual = calcularcuotamensuales(cuota, estudiante);
         cuota.setArancelMensual(arancelMensual);
@@ -117,7 +119,6 @@ public class CuotaService {
     public void pagarCuota(CuotaEntity cuota){
         LocalDate fechaLocal = LocalDate.now();
         LocalDate fechaPago = cuota.getFechaPago();
-        //LocalDate fechaVencimiento = cuota.getFechaVencimiento();
         if ("Pendiente".equals(cuota.getEstado()) ) {
             int diaDelmes = fechaLocal.getDayOfMonth();
             int mesDeldia = fechaPago.getMonthValue();
@@ -129,7 +130,7 @@ public class CuotaService {
     }
 
     // Calcula los meses atrasados y aplica los intereses según la cantidad de meses //
-    public void pagarCuotaAtrasada(CuotaEntity cuota) {
+    public void pagarCuotaAtrasadas(CuotaEntity cuota) {
         LocalDate fechaLocal = LocalDate.now();
         long mesesAtrasados = ChronoUnit.MONTHS.between(cuota.getFechaPago(), fechaLocal);// calcula la cantidad de meses entre la fecha de pago con la fecha local //
         if ("Pendiente".equals(cuota.getEstado())) {
@@ -161,4 +162,36 @@ public class CuotaService {
         }
     }
 
+    // Se realiza el descuento a las cuotas mensuales pendientes que debe pagar el estudiantes gracias a su promedio de los puntajes de las pruebas //
+    public void descuentoPrueba(CuotaEntity cuota , String rutEstudiante){
+        LocalDate fechaLocal = LocalDate.now();
+        LocalDate fechaPago = cuota.getFechaPago();
+        if ("Pendiente".equals(cuota.getEstado()) && !cuota.isDescuentoPrueba() && fechaLocal.getMonth() == fechaPago.getMonth()) {
+            double promedio = pruebaService.calcularpromediopuntaje(rutEstudiante);
+            double arancelmensual= cuota.getArancelMensual();
+            double descuento = 0;
+            if (promedio >= 950 && promedio <= 1000){
+                descuento = arancelmensual * 0.10;
+
+            } else if (promedio >= 900 && promedio <= 949){
+                descuento = arancelmensual * 0.05;
+
+            } else if (promedio >= 850 && promedio <= 899){
+                descuento = arancelmensual * 0.02;
+
+            }
+            cuota.setArancelMensual(arancelmensual - descuento);
+            cuota.setDescuentoPrueba(true);
+            cuotaRepository.save(cuota);
+
+            List<CuotaEntity> cuotasPendientes = cuotaRepository.findCuotasPendintes();
+            for (CuotaEntity cuotaPendientes : cuotasPendientes) {
+                if (!cuotaPendientes.equals(cuota)) {
+                    double nuevoArancelMensualPendiente2 = cuotaPendientes.getArancelMensual() - descuento;
+                    cuotaPendientes.setArancelMensual(nuevoArancelMensualPendiente2);
+                }
+            }
+            cuotaRepository.saveAll(cuotasPendientes);
+        }
+    }
 }

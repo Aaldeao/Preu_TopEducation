@@ -53,7 +53,17 @@ public class CuotaController {
     @PostMapping("/PagocuotaAtrasada")// Al apretar el boton de atrasada en la cuota se cambiamos el estado para luego agregar sus intereses //
     public String pagarCuotaAtrasada(@RequestParam("idCuota") Long idCuota, Model model) {
         CuotaEntity cuota = cuotaService.obteneridCuota(idCuota);
-        cuotaService.pagarCuotaAtrasada(cuota);
+        cuotaService.pagarCuotaAtrasadas(cuota);
+        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
+        model.addAttribute("cuota", cuotas);
+        return "BuscarCuota";
+    }
+
+    @PostMapping("/Descuentocuota")// Al apretar el boton de descuento se le realiza el descuento asociado al promedio de puntajes de las pruebas //
+    public String descuentoxCuota(@RequestParam("idCuota") Long idCuota, Model model) {
+        CuotaEntity cuota = cuotaService.obteneridCuota(idCuota);
+        String rutEstudiante = cuota.getEstudiante().getRut();
+        cuotaService.descuentoPrueba(cuota, rutEstudiante);
         ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
         model.addAttribute("cuota", cuotas);
         return "BuscarCuota";

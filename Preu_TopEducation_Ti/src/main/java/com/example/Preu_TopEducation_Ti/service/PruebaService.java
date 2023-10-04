@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Paths;
 
@@ -22,7 +23,6 @@ public class PruebaService {
     PruebaRepository pruebaRepository;
     @Autowired
     EstudianteRepository estudianteRepository;
-
 
     // Guarda el archivo subido en mi carpeta raiz //
     private final Logger logg = LoggerFactory.getLogger(PruebaService.class);
@@ -80,7 +80,23 @@ public class PruebaService {
         }
     }
 
-    public void calcularpromediopuntaje(PruebaEntity pruebaEntity){
+    //Obtiene lo asociado del rut //
+    public ArrayList<PruebaEntity> obtenerPruebasPorRut(String rut){
+        return pruebaRepository.findByEstudianteRut(rut);
+    }
 
+
+    // Calcula el promedio de los puntajes asociado al rut //
+    public double calcularpromediopuntaje(String rut){
+        ArrayList<PruebaEntity> pruebas = obtenerPruebasPorRut(rut);
+        double suma = 0;
+        int cantidadnotas=pruebas.size();
+        for (PruebaEntity prueba : pruebas){
+            suma = suma + prueba.getPuntaje();
+        }
+        if (cantidadnotas > 0){
+            return suma / cantidadnotas;
+        }
+        return suma;
     }
 }

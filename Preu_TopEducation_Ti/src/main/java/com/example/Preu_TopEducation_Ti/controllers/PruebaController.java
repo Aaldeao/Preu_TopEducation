@@ -21,7 +21,7 @@ public class PruebaController {
         return "subirArchivoExcel";
     }
 
-    // recibe el archivo .csv para guardarlo en la base de datos //
+    // Recibe el archivo .csv para guardarlo en la base de datos //
     @PostMapping("/SubirExcel")
     public String subirExcel(@RequestParam("archivo_excel") MultipartFile pruebaExcel, Model model) {
         pruebaService.guardar(pruebaExcel);

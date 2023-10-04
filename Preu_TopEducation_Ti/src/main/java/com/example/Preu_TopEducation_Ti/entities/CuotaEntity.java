@@ -24,6 +24,7 @@ public class CuotaEntity {
     private LocalDate fechaPago;
     private LocalDate fechaVencimiento;
     private String estado;
+    private boolean descuentoPrueba;
 
     // relacion mucho a uno del estudiante cuota //
     @ManyToOne
