@@ -16,6 +16,10 @@ public class PruebaController {
     @Autowired
     PruebaService pruebaService;
 
+    @GetMapping("/Inicioo") // devuelve la vista del inicio //
+    public String Inicioo(){
+        return "index";
+    }
     @GetMapping("/subirArchivoExcel") // Devuelve la vista para subir el archivo excel //
     public String subirArchivo(){
         return "subirArchivoExcel";

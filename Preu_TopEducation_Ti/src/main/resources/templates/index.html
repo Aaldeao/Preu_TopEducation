@@ -1,37 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Preuniversitario Top Education</title>
 </head>
 <body style="text-align: center;">
 
-    <h1>Bienvenido a la Preuniversitario Top Educacion</h1>
-    <h3> Haga click en el botón del servicio que desea</h3>
+<h1 th:text="'Bienvenido a la Preuniversitario Top Educacion'">Bienvenido a la Preuniversitario Top Educacion</h1>
+<h3> Haga click en el botón del servicio que desea</h3>
 
-    <div style="display: inline-block; text-align: left;">
-        <form action="/Formulario">
-            <button type="submit">Añadir Estudiantes</button>
-        </form>
-    </div>
+<div style="display: inline-block; text-align: left;">
+    <form action="/Formulario">
+        <button type="submit">Añadir Estudiantes</button>
+    </form>
+</div>
 
-    <div style="display: inline-block; text-align: left;">
-        <form action="/GeneradorCuotas">
-            <button type="submit">Generar Cuotas</button>
-        </form>
-    </div>
+<div style="display: inline-block; text-align: left;">
+    <form action="/GeneradorCuotas">
+        <button type="submit">Generar Cuotas</button>
+    </form>
+</div>
 
-    <div style="display: inline-block; text-align: left;">
-        <form action="/Mostrar">
-            <button type="submit">Mostrar Cuotas</button>
-        </form>
-    </div>
+<div style="display: inline-block; text-align: left;">
+    <form action="/Mostrar">
+        <button type="submit">Mostrar Cuotas</button>
+    </form>
+</div>
 
-    <div style="display: inline-block; text-align: left;">
-        <form action="/subirArchivoExcel">
-            <button type="submit">Subir archivo</button>
-        </form>
-    </div>
+<div style="display: inline-block; text-align: left;">
+    <form action="/subirArchivoExcel">
+        <button type="submit">Subir Archivo</button>
+    </form>
+</div>
+
+<div style="display: inline-block; text-align: left;">
+    <form action="/">
+        <button type="submit">Mostrar Estudiante</button>
+    </form>
+</div>
 
 </body>
 </html>
