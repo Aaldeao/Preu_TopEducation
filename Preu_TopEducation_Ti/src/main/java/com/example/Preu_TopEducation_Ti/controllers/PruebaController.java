@@ -16,10 +16,6 @@ public class PruebaController {
     @Autowired
     PruebaService pruebaService;
 
-    @GetMapping("/Inicioo") // devuelve la vista del inicio //
-    public String Inicioo(){
-        return "index";
-    }
     @GetMapping("/subirArchivoExcel") // Devuelve la vista para subir el archivo excel //
     public String subirArchivo(){
         return "subirArchivoExcel";
@@ -32,5 +28,9 @@ public class PruebaController {
         String resultado = pruebaService.cargarCsv(pruebaExcel);
         model.addAttribute("resultado", resultado);
         return "index";
+    }
+    @GetMapping("/Reporte") // devuelve la vista del reporte //
+    public String reporte(){
+        return "Reporte";
     }
 }

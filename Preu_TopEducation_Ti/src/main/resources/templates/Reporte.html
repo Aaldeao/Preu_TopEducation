@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>Reporte del Estudiante</title>
+    <meta http-equiv= "Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-sm">
+    <h1 class = "text-center">Reporte del estudiante</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Rut</th>
+            <th>Nombres</th>
+            <th>Examenes rendidos</th>
+            <th>Promedio puntaje examenes</th>
+            <th>Total arancel a pagar</th>
+            <th>Tipo de pago</th>
+            <th>Total de cuotas pactadas</th>
+            <th>Cuotas pagadas </th>
+            <th>Monto total pagado</th>
+            <th>Fecha ultimo pago</th>
+            <th>Saldo por pagar</th>
+            <th>Cuotas con retraso</th>
+
+        </tr>
+        </thead>
+        <!--
+        <tbody>
+        <tr th:each="cuota : ${cuota}">
+            <td th:text="${estudiante.rut}"></td>
+            <td th:text="${cuota.numeroCuota}"></td>
+            <td th:text="${cuota.arancel}"></td>
+            <td th:text="${cuota.arancelMensual}"></td>
+            <td th:text="${cuota.fechaPago}"></td>
+            <td th:text="${cuota.fechaVencimiento}"></td>
+            <td th:text="${cuota.estado}"></td>
+            <td>
+        </tbody>
+        -->
+    </table>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <form action="/Inicio">
+        <button type="submit" class="btn btn-primary" >Volver al inicio</button>
+    </form>
+</div>
+</body>
+</html>

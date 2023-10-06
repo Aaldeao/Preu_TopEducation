@@ -21,4 +21,5 @@ public class EstudianteEntity {
     private String nombreColegio;
     private int anoEgreso;
     private int cantidad;
+    private String tipoDepago;
 }

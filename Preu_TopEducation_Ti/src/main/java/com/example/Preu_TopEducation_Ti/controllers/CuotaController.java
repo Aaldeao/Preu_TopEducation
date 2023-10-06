@@ -29,16 +29,16 @@ public class CuotaController {
         return "index";
     }
 
-    @GetMapping("/Mostrar")// Solicita el rut del estudiante el cual esta asociado a las cuotas //
+    @GetMapping("/Buscarcliente")// Solicita el rut del estudiante el cual esta asociado a las cuotas //
     public String mostrar(){
-        return "Mostrar";
+        return "Buscarcliente";
     }
 
-    @PostMapping("/BuscarCuota") // Mediante el rut solicitado verifica si el estudiante tiene cuotas y las muestra//
+    @PostMapping("/CuotasdelEstudiante") // Mediante el rut solicitado verifica si el estudiante tiene cuotas y las muestra//
     public String buscarcuota(@RequestParam("rut") String rut , Model model){ // metodo @RequestParam que nos sirve para acceder al valor del parametro rut //
         ArrayList<CuotaEntity> cuota = cuotaService.obtenerPorRut(rut);
         model.addAttribute("cuota", cuota);
-        return "BuscarCuota";
+        return "CuotasdelEstudiante";
     }
 
     @PostMapping("/Pagocuota") // Al apretar el boton de pagar en la cuota obtenemos el idCuota y se cambiamos el estado //
@@ -47,7 +47,7 @@ public class CuotaController {
         cuotaService.pagarCuota(cuota);
         ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
         model.addAttribute("cuota", cuotas);
-        return "BuscarCuota";
+        return "CuotasdelEstudiante";
     }
 
     @PostMapping("/PagocuotaAtrasada")// Al apretar el boton de atrasada en la cuota se cambiamos el estado para luego agregar sus intereses //
@@ -56,7 +56,7 @@ public class CuotaController {
         cuotaService.pagarCuotaAtrasadas(cuota);
         ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
         model.addAttribute("cuota", cuotas);
-        return "BuscarCuota";
+        return "CuotasdelEstudiante";
     }
 
     @PostMapping("/Descuentocuota")// Al apretar el boton de descuento se le realiza el descuento asociado al promedio de puntajes de las pruebas //
@@ -66,6 +66,6 @@ public class CuotaController {
         cuotaService.descuentoPrueba(cuota, rutEstudiante);
         ArrayList<CuotaEntity> cuotas = cuotaService.obtenerPorRut(cuota.getEstudiante().getRut());
         model.addAttribute("cuota", cuotas);
-        return "BuscarCuota";
+        return "CuotasdelEstudiante";
     }
 }

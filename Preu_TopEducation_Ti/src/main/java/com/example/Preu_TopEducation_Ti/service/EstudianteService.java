@@ -18,4 +18,6 @@ public class EstudianteService {
     public EstudianteEntity buscarRut(String rut){ // Permite buscar un estudiante por el rut //
         return estudianteRepository.findByRut(rut);
     }
+
+
 }

@@ -28,6 +28,7 @@
                 <td><label for="tipoColegio">Tipo de colegio:</label></td>
                 <td>
                     <select id="tipoColegio" name="tipoColegio" required>
+                        <option value="Seleccione..">Seleccione..</option>
                         <option value="Municipal">Municipal</option>
                         <option value="Subvencionado">Subvencionado</option>
                         <option value="Privado">Privado</option>
@@ -41,6 +42,16 @@
             <tr>
                 <td><label for="anoEgreso">Año de Egreso:</label></td>
                 <td><input type="text" id="anoEgreso" name="anoEgreso" required></td>
+            </tr>
+            <tr>
+                <td><label for="tipoDepago">Tipo de pago:</label></td>
+                <td>
+                    <select id="tipoDepago" name="tipoDepago" required>
+                        <option value="Seleccione..">Seleccione..</option>
+                        <option value="Contado">Contado</option>
+                        <option value="Cuotas">Cuotas</option>
+                    </select>
+                </td>
             </tr>
         </table>
         <button type="submit">Guardar Estudiante</button>
