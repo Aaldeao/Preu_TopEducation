@@ -19,10 +19,11 @@
             <th>Tipo de pago</th>
             <th>Total de cuotas pactadas</th>
             <th>Cuotas pagadas </th>
-            <th>Monto total pagado</th>
-            <th>Fecha ultimo pago</th>
-            <th>Saldo por pagar</th>
             <th>Cuotas con retraso</th>
+            <th>Monto total pagado</th>
+            <th>Saldo por pagar</th>
+            <th>Fecha ultimo pago</th>
+
         </tr>
         </thead>
 
@@ -35,7 +36,11 @@
             <td th:text="${reporte.arancel}"></td>
             <td th:text="${reporte.tipoPago}"></td>
             <td th:text="${reporte.cuotasPactadas}"></td>
-            <td>
+            <td th:text="${reporte.cuotasPagadas}"></td>
+            <td th:text="${reporte.cuotasAtrasadas}"></td>
+            <td th:text="${reporte.montoPagado}"></td>
+            <td th:text="${reporte.saldoaPagar}"></td>
+            <td th:text="${reporte.fechaUltimo}"></td>
         </tbody>
 
     </table>

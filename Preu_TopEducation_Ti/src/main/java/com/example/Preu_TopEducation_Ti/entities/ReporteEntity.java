@@ -18,10 +18,10 @@ public class ReporteEntity {
     private String tipoPago;
     private int cuotasPactadas;
     private int cuotasPagadas;
-    private int montoPagao;
+    private double montoPagado;
     private LocalDate fechaUltimo;
     private double saldoaPagar;
-    private int cuotasAtrasdas;
+    private int cuotasAtrasadas;
 
 }
 

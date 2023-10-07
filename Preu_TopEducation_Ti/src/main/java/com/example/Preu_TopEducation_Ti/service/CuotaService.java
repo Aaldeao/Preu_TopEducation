@@ -96,11 +96,14 @@ public class CuotaService {
     public void cuotasxEstudiante(EstudianteEntity estudiante ) {
         EstudianteEntity estudiante1 = estudianteRepository.findByRut(estudiante.getRut());
         estudiante1.setCantidad(estudiante.getCantidad());
+        LocalDate fechaEmision=LocalDate.now();
         for (int i = 0; i < estudiante.getCantidad(); i++) {
             CuotaEntity cuota = creacuota(i + 1, estudiante1);
+            cuota.setFechaEmision(fechaEmision);
+            cuota.setFechaPago(cuota.getFechaEmision().plusMonths(1).withDayOfMonth(5));
+            cuota.setFechaVencimiento(cuota.getFechaEmision().plusMonths(1).withDayOfMonth(11));
             guardarcuota(cuota, estudiante1);
-            cuota.setFechaPago(cuota.getFechaEmision().plusMonths(i + 2).withDayOfMonth(5));
-            cuota.setFechaVencimiento(cuota.getFechaEmision().plusMonths(i + 2).withDayOfMonth(11));
+            fechaEmision=cuota.getFechaEmision().plusMonths(1);
         }
     }
 
@@ -194,4 +197,48 @@ public class CuotaService {
             cuotaRepository.saveAll(cuotasPendientes);
         }
     }
+
+    // Obtiene cuantas cuotas pagadas tienen el rut asociado //
+    public int registrarPagada(String rut){
+        int cuotaPagadas = cuotaRepository.cuotaspagadasRut(rut);
+        return cuotaPagadas;
+    }
+
+    // Obtiene cuantas cuotas atrasadas tienen el rut asociado //
+    public int registrarAtrasadas(String rut){
+        int cuotasAtrasada = cuotaRepository.cuotasAtrasadaRut(rut);
+        return cuotasAtrasada;
+    }
+
+    // Obtenemos el monto total que ha pagado el rut asociado //
+    public double montoCuotasPagadas (String rut){
+        double montototal = 0;
+        ArrayList<CuotaEntity> cuotasPagadas = cuotaRepository.findCuotasPagadas(rut);
+        for (CuotaEntity cuota : cuotasPagadas){
+            montototal = montototal + cuota.getArancelMensual();
+        }
+        return montototal;
+    }
+
+    // Obtenemos el monto total que le falta por pagar estudiante(rut) asociado //
+    public double montoApagar (String rut){
+        double montototalatrasado = 0;
+        ArrayList<CuotaEntity> cuotasPendiente = cuotaRepository.findCuotasPendiente(rut);
+        for (CuotaEntity cuota : cuotasPendiente){
+            montototalatrasado = montototalatrasado + cuota.getArancelMensual();
+        }
+        return montototalatrasado;
+    }
+
+    // Obtenemos la ultima fecha de pago de la cuota del rut asociado //
+    public LocalDate obtenerFechaultimaCuota (String rut){
+        ArrayList<CuotaEntity> cuotas = cuotaRepository.findUltimafechadepago(rut);
+        if (!cuotas.isEmpty()){
+            CuotaEntity ultimacuota= cuotas.get(0);
+            return ultimacuota.getFechaPago();
+        }else {
+            return null;
+        }
+    }
+
 }
