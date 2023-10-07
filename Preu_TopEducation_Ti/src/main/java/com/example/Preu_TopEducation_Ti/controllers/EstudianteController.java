@@ -1,6 +1,7 @@
 package com.example.Preu_TopEducation_Ti.controllers;
 
 import com.example.Preu_TopEducation_Ti.entities.EstudianteEntity;
+import com.example.Preu_TopEducation_Ti.entities.ReporteEntity;
 import com.example.Preu_TopEducation_Ti.service.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping
@@ -33,5 +36,14 @@ public class EstudianteController {
         estudianteService.ingresarestudiante(estudiante);
         return "index";
     }
+
+    @GetMapping("/Reporte") // Muestra los reporte de los estudiantes //
+    public String reporte(Model model) {
+        ArrayList<ReporteEntity> reporte = estudianteService.crearReporte();
+        model.addAttribute("reporte", reporte);
+        return "Reporte";
+
+    }
+
 
 }

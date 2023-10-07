@@ -29,8 +29,4 @@ public class PruebaController {
         model.addAttribute("resultado", resultado);
         return "index";
     }
-    @GetMapping("/Reporte") // devuelve la vista del reporte //
-    public String reporte(){
-        return "Reporte";
-    }
 }

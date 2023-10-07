@@ -48,7 +48,7 @@ public class PruebaService {
         }
     }
 
-    // lee un archivo .csv el cual valida si el formato es el indicado(rut,fecha,puntaje) y luego lo guarda en la base de datos //
+    // Lee un archivo .csv el cual valida si el formato es el indicado(rut,fecha,puntaje) y luego lo guarda en la base de datos //
     public String cargarCsv(MultipartFile archivoCSV) {
         try {
             Scanner scanner = new Scanner(archivoCSV.getInputStream());
@@ -80,23 +80,32 @@ public class PruebaService {
         }
     }
 
-    //Obtiene lo asociado del rut //
+    // Obtiene lo asociado del rut //
     public ArrayList<PruebaEntity> obtenerPruebasPorRut(String rut){
         return pruebaRepository.findByEstudianteRut(rut);
     }
 
+    // Calcula la cantidad de pruebas asociado al rut //
+    public int calcularCantidadprueba(String rut) {
+        ArrayList<PruebaEntity> pruebas = obtenerPruebasPorRut(rut);
+        int cantidadPruebas = pruebas.size();
+        for (PruebaEntity prueba : pruebas) {
+            prueba.setCantidadPrueba(cantidadPruebas);
+        }
+        return cantidadPruebas;
+    }
 
     // Calcula el promedio de los puntajes asociado al rut //
     public double calcularpromediopuntaje(String rut){
+        int cantidadnotas= calcularCantidadprueba(rut);
         ArrayList<PruebaEntity> pruebas = obtenerPruebasPorRut(rut);
-        double suma = 0;
-        int cantidadnotas=pruebas.size();
+        double sumaNotas = 0;
         for (PruebaEntity prueba : pruebas){
-            suma = suma + prueba.getPuntaje();
+            sumaNotas = sumaNotas + prueba.getPuntaje();
         }
         if (cantidadnotas > 0){
-            return suma / cantidadnotas;
+            return sumaNotas / cantidadnotas;
         }
-        return suma;
+        return sumaNotas;
     }
 }

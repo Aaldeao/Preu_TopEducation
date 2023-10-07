@@ -3,6 +3,7 @@ package com.example.Preu_TopEducation_Ti.service;
 import com.example.Preu_TopEducation_Ti.entities.CuotaEntity;
 import com.example.Preu_TopEducation_Ti.entities.EstudianteEntity;
 import com.example.Preu_TopEducation_Ti.repositories.CuotaRepository;
+import com.example.Preu_TopEducation_Ti.repositories.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.temporal.ChronoUnit;
@@ -16,7 +17,7 @@ public class CuotaService {
     @Autowired
     CuotaRepository cuotaRepository;
     @Autowired
-    EstudianteService estudianteService;
+    EstudianteRepository estudianteRepository;
     @Autowired
     PruebaService pruebaService;
 
@@ -25,17 +26,17 @@ public class CuotaService {
         CuotaEntity cuota = new CuotaEntity();
         cuota.setEstudiante(estudiante);
         cuota.setEstado("Pendiente");
-        cuota.setArancel(1500000);
+        cuota.setArancel(calculararancel(estudiante));
         cuota.setNumeroCuota(numero);
         cuota.setFechaEmision(LocalDate.now());
-        calcularcuotamensuales(cuota, estudiante);
+        calcularcuotamensuales(estudiante);
         cuota.setFechaPago(cuota.getFechaEmision().plusMonths(1).withDayOfMonth(5));
         cuota.setFechaVencimiento(cuota.getFechaEmision().plusMonths(1).withDayOfMonth(11));
         return cuota;
     }
 
     // Calcula el arancel con los descuentos correspondientes sobre su tipo de colegio y los años de egreso//
-    public double calculararancel(CuotaEntity cuota, EstudianteEntity estudiante){
+    public double calculararancel(EstudianteEntity estudiante){
         double arancel = 1500000;
         int egreso= LocalDate.now().getYear() - estudiante.getAnoEgreso();
 
@@ -70,13 +71,12 @@ public class CuotaService {
                 arancel = arancel * 0.96; // 4% //
             }
         }
-        cuota.setArancel(arancel);
         return arancel;
     }
 
     // Calcula el arancel mensual que deberia pagar dependiendo de las cuotas escogidas //
-    public double calcularcuotamensuales(CuotaEntity cuota, EstudianteEntity estudiante){
-        double arancel  = calculararancel(cuota, estudiante);
+    public double calcularcuotamensuales( EstudianteEntity estudiante){
+        double arancel  = calculararancel(estudiante);
         double arancelMensual = 0;
         if (arancel>0 && estudiante.getCantidad()>0){
             arancelMensual = arancel / estudiante.getCantidad();
@@ -86,7 +86,7 @@ public class CuotaService {
 
     // Guarda el arancel y su arancel mensual del estudiante //
     public CuotaEntity guardarcuota(CuotaEntity cuota, EstudianteEntity estudiante){
-        double arancelMensual = calcularcuotamensuales(cuota, estudiante);
+        double arancelMensual = calcularcuotamensuales(estudiante);
         cuota.setArancelMensual(arancelMensual);
         cuota.setEstudiante(estudiante);
         return cuotaRepository.save(cuota);
@@ -94,7 +94,7 @@ public class CuotaService {
 
     // Genera las cuotas mediante a la cantidad asociada que solicia la persona y las guarda  //
     public void cuotasxEstudiante(EstudianteEntity estudiante ) {
-        EstudianteEntity estudiante1 = estudianteService.buscarRut(estudiante.getRut());
+        EstudianteEntity estudiante1 = estudianteRepository.findByRut(estudiante.getRut());
         estudiante1.setCantidad(estudiante.getCantidad());
         for (int i = 0; i < estudiante.getCantidad(); i++) {
             CuotaEntity cuota = creacuota(i + 1, estudiante1);

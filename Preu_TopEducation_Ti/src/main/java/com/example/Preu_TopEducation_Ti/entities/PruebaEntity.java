@@ -18,6 +18,7 @@ public class PruebaEntity {
     private Long idPrueba;
     private String fechaExamen;
     private Long puntaje;
+    private int cantidadPrueba;
 
     // relacion mucho a uno del estudiante prueba//
     @ManyToOne
