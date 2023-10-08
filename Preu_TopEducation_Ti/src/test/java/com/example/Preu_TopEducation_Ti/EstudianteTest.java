@@ -57,6 +57,4 @@ class EstudianteTest {
         assertNotNull(reportes);//se asegura que la lista de reportes no sea nula//
         assertTrue(reportes.size()>0);//se asegura que almenos tenga algun elemento//
     }
-
-
 }

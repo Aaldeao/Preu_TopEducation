@@ -85,7 +85,7 @@ public class PruebaService {
         return pruebaRepository.findByEstudianteRut(rut);
     }
 
-    // Calcula la cantidad de pruebas asociado al rut //
+    // Calcula la cantidad de pruebas asociado al rut(cuantas veces se repite el rut) //
     public int calcularCantidadprueba(String rut) {
         ArrayList<PruebaEntity> pruebas = obtenerPruebasPorRut(rut);
         int cantidadPruebas = pruebas.size();
