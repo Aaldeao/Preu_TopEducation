@@ -8,12 +8,12 @@ import com.example.Preu_TopEducation_Ti.service.CuotaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 
 @SpringBootTest
@@ -76,5 +76,13 @@ class CuotaTest {
         assertEquals(arancel,arancelmensual);
     }
 
-
+    @Test
+    void pagarCuotaTest(){
+        CuotaEntity cuota = new CuotaEntity();
+        LocalDate fechapago = LocalDate.now().withDayOfMonth(5);
+        cuota.setEstado("Pendiente");
+        cuota.setFechaPago(fechapago);
+        cuotaService.pagarCuota(cuota);
+        assertEquals("Pagado", cuota.getEstado());
+    }
 }

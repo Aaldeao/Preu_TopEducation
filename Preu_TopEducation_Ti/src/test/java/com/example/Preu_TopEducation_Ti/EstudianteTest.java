@@ -31,7 +31,7 @@ class EstudianteTest {
         estudiante.setNombres("Hernan");
         estudiante.setApellidos("Herrera");
         estudiante.setFechaNacimiento("2001-05-24");
-        estudiante.setTipoColegio("Public");
+        estudiante.setTipoColegio("Municipal");
         estudiante.setNombreColegio("Liceo Nacional de Maipu");
         estudiante.setAnoEgreso(2021);
         estudiante.setCantidad(6);
