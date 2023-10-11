@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -79,10 +79,22 @@ class CuotaTest {
     @Test
     void pagarCuotaTest(){
         CuotaEntity cuota = new CuotaEntity();
-        LocalDate fechapago = LocalDate.now().withDayOfMonth(5);
+        cuota.setArancel(1080000.0);
+        cuota.setArancelMensual(108000.0);
         cuota.setEstado("Pendiente");
-        cuota.setFechaPago(fechapago);
+        cuota.setFechaPago(LocalDate.now());
         cuotaService.pagarCuota(cuota);
         assertEquals("Pagado", cuota.getEstado());
+    }
+
+    @Test
+    void pagarCuotaAtrasadaTest(){
+        CuotaEntity cuota = new CuotaEntity();
+        cuota.setEstado("Pendiente");
+        cuota.setArancel(1080000.0);
+        cuota.setArancelMensual(108000.0);
+        cuota.setFechaPago(LocalDate.now().minusMonths(2));
+        cuotaService.pagarCuotaAtrasadas(cuota);
+        assertEquals("Atrasada", cuota.getEstado());
     }
 }
