@@ -91,6 +91,7 @@ public class PruebaService {
         int cantidadPruebas = pruebas.size();
         for (PruebaEntity prueba : pruebas) {
             prueba.setCantidadPrueba(cantidadPruebas);
+            pruebaRepository.save(prueba);
         }
         return cantidadPruebas;
     }
