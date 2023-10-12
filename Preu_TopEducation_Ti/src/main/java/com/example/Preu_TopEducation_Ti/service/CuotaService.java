@@ -223,7 +223,7 @@ public class CuotaService {
     // Obtenemos el monto total que le falta por pagar estudiante(rut) asociado //
     public double montoApagar (String rut){
         double montototalatrasado = 0;
-        ArrayList<CuotaEntity> cuotasPendiente = cuotaRepository.findCuotasPendiente(rut);
+        ArrayList<CuotaEntity> cuotasPendiente = cuotaRepository.findCuotasPendienterut(rut);
         for (CuotaEntity cuota : cuotasPendiente){
             montototalatrasado = montototalatrasado + cuota.getArancelMensual();
         }

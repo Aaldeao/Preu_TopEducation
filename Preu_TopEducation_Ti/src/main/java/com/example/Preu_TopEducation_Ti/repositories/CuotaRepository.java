@@ -26,7 +26,7 @@ public interface CuotaRepository extends JpaRepository<CuotaEntity, Long> {
      ArrayList <CuotaEntity> findCuotasPagadas(@Param("rut") String rut);
 
      @Query("select cuota from CuotaEntity cuota where cuota.estudiante.rut = :rut and cuota.estado = 'Pendiente'") // Obtenemos las cuotas Pendiente del rut asociado //
-     ArrayList <CuotaEntity> findCuotasPendiente(@Param("rut") String rut);
+     ArrayList <CuotaEntity> findCuotasPendienterut(@Param("rut") String rut);
      @Query("select cuota from CuotaEntity cuota where cuota.estudiante.rut = :rut order by cuota.fechaPago desc ") // Obtenemos las cuotas del rut asociado y las ordena descendente  //
      ArrayList <CuotaEntity> findUltimafechadepago(@Param("rut") String rut);
 
