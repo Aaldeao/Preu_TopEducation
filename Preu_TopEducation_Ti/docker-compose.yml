@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgres
+    environment:
+      POSTGRES_PASSWORD: Aaldea1604
+      POSTGRES_DB: Preu_TopEducation
+      POSTGRES_USER: postgres
+    ports:
+      - "5433:5432"
+  app:
+    container_name: preu_topeducation_ti
+    image: aaldeao/preu_topeducation
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Preu_TopEducation?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Aaldea1604
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres
