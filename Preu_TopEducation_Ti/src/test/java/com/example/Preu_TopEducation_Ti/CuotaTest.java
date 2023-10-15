@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -99,6 +101,17 @@ class CuotaTest {
             assertEquals(fechaEmision, cuota.getFechaEmision());
             fechaEmision = fechaEmision.plusMonths(1);
         }
+    }
+
+    @Test
+    void obtenerporRutTest(){
+        String rut = "20567417-9";
+        CuotaEntity cuota = new CuotaEntity();
+        cuota.setIdCuota(1L);
+        cuota.setEstado("Pendiente");
+        when(cuotaRepository.findByEstudianteRut(rut)).thenReturn(new ArrayList<>(Arrays.asList(cuota)));
+        ArrayList<CuotaEntity>cuotas=cuotaService.obtenerPorRut(rut);
+        assertEquals(1l, cuotas.get(0).getIdCuota());
     }
 
     @Test
@@ -193,7 +206,4 @@ class CuotaTest {
         LocalDate ultimafecha = cuotaService.obtenerFechaultimaCuota(rut);
         assertEquals(LocalDate.of(2023,04, 05),ultimafecha);
     }
-
-
-
 }
