@@ -217,7 +217,7 @@ public class CuotaService {
         for (CuotaEntity cuota : cuotasPagadas){
             montototal = montototal + cuota.getArancelMensual();
         }
-        return montototal;
+        return Math.round(montototal);
     }
 
     // Obtenemos el monto total que le falta por pagar estudiante(rut) asociado //
@@ -227,7 +227,7 @@ public class CuotaService {
         for (CuotaEntity cuota : cuotasPendiente){
             montototalatrasado = montototalatrasado + cuota.getArancelMensual();
         }
-        return montototalatrasado;
+        return Math.round(montototalatrasado);
     }
 
     // Obtenemos la ultima fecha de pago de la cuota del rut asociado //
